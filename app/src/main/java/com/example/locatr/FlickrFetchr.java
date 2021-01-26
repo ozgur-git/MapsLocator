@@ -1,6 +1,7 @@
 package com.example.locatr;
 
 
+import android.location.Location;
 import android.net.Uri;
 import com.google.gson.Gson;
 import org.json.JSONException;
@@ -59,7 +60,6 @@ public class FlickrFetchr {
     }
 
     public String getUrlString(String urlSpec) throws IOException {
-
         return new String(getUrlBytes(urlSpec));
     }
 
@@ -73,6 +73,11 @@ public class FlickrFetchr {
         return downloadGalleryItems(url);
     }
 
+    public List<Photo> searchPhotos(Location location ){
+        String url=buildUrl(location);
+        return downloadGalleryItems(url);
+    }
+
     private String buildUrl(String method,String query,int page){
         Uri.Builder uriBuilder=END_POINT.buildUpon().
                 appendQueryParameter("method",method).appendQueryParameter("page",String.valueOf(page));
@@ -83,6 +88,14 @@ public class FlickrFetchr {
         }
 
         return uriBuilder.build().toString();
+    }
+    
+    private String buildUrl(Location location){
+        return END_POINT.buildUpon()
+                .appendQueryParameter("method",SEARCH_METHOD)
+                .appendQueryParameter("lat",""+location.getLatitude())
+                .appendQueryParameter("lon",""+location.getLongitude())
+                .build().toString();
     }
 
     public List<Photo> downloadGalleryItems(String url){
