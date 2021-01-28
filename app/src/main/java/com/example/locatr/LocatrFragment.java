@@ -130,17 +130,13 @@ public class LocatrFragment extends Fragment {
         request.setInterval(0);
         Log.i(TAG,"find image is called");
         LocationServices.FusedLocationApi
-                .requestLocationUpdates(mClient, request, new LocationListener() {
-                    @Override
-                    public void onLocationChanged(Location location) {
-                        Log.i(TAG,"Got a fix "+location);
-                        (new SearchTask()).execute(location);
-                    }
+                .requestLocationUpdates(mClient, request, location -> {
+                    Log.i(TAG,"Got a fix "+location);
+                    (new SearchTask()).execute(location);
                 });
     }
 
     private class SearchTask extends AsyncTask<Location,Void,Void>{
-        Photo mPhoto;
         FlickrFetchr mFlickrFetchr=new FlickrFetchr();
         Bitmap mBitmap;
         @Override
