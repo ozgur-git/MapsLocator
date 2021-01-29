@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.*;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -32,6 +33,7 @@ public class LocatrFragment extends Fragment {
     private static final int REQUEST_LOCATION_PERMISSIONS=0;
     private GoogleApiClient mClient;
     private ImageView mImageView;
+    private ProgressBar mProgressBar;
 
     public static LocatrFragment newInstance(){
         return new LocatrFragment();
@@ -66,6 +68,9 @@ public class LocatrFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v=inflater.inflate(R.layout.fragment_locatr,container,false);
         mImageView=v.findViewById(R.id.image);
+        mProgressBar=v.findViewById(R.id.progress_horizontal);
+        mProgressBar.setVisibility(View.VISIBLE);
+        mImageView.setVisibility(View.GONE);
         return v;
     }
 
@@ -139,6 +144,9 @@ public class LocatrFragment extends Fragment {
     private class SearchTask extends AsyncTask<Location,Void,Void>{
         FlickrFetchr mFlickrFetchr=new FlickrFetchr();
         Bitmap mBitmap;
+
+
+
         @Override
         protected Void doInBackground(Location... locations) {
                 List<Photo> photos=mFlickrFetchr.searchPhotos(locations[0]);
@@ -158,7 +166,11 @@ public class LocatrFragment extends Fragment {
         @Override
         protected void onPostExecute(Void unused) {
             super.onPostExecute(unused);
+            mProgressBar.setVisibility(View.GONE);
+            mImageView.setVisibility(View.VISIBLE);
             mImageView.setImageBitmap(mBitmap);
+
+
 
 
         }
