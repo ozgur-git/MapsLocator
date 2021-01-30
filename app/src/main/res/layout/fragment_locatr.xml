@@ -4,12 +4,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <ProgressBar android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 style="@style/Widget.AppCompat.ProgressBar"
-                 android:id="@+id/progress_horizontal"
-                 android:indeterminate="true"
-                 android:layout_gravity="center"/>
+<!--    <ProgressBar android:layout_width="match_parent"-->
+<!--                 android:layout_height="wrap_content"-->
+<!--                 style="@style/Widget.AppCompat.ProgressBar"-->
+<!--                 android:id="@+id/progress_horizontal"-->
+<!--                 android:indeterminate="true"-->
+<!--                 android:layout_gravity="center"/>-->
 
     <ImageView android:layout_width="150dp"
                android:layout_height="150dp"

@@ -28,9 +28,8 @@ public class FlickrFetchr {
             appendQueryParameter("format","json").
             appendQueryParameter("api_key",API_KEY).
             appendQueryParameter("nojsoncallback","1").
-            appendQueryParameter("extras","url_s").
+            appendQueryParameter("extras","url_s,geo").
             build();
-
 
     Photo mPhoto;
 
@@ -40,7 +39,6 @@ public class FlickrFetchr {
 //    }
 
     public byte[] getUrlBytes(String urlSpec) throws IOException {
-
         URL url=new URL(urlSpec);
         HttpURLConnection connection= (HttpURLConnection) url.openConnection();
         InputStream inputStream=connection.getInputStream();
@@ -82,7 +80,6 @@ public class FlickrFetchr {
         Uri.Builder uriBuilder=END_POINT.buildUpon().
                 appendQueryParameter("method",method).appendQueryParameter("page",String.valueOf(page));
 
-
         if (method.equals(SEARCH_METHOD)){
             uriBuilder.appendQueryParameter("text",query).appendQueryParameter("page",String.valueOf(page));
         }
@@ -99,7 +96,6 @@ public class FlickrFetchr {
     }
 
     public List<Photo> downloadGalleryItems(String url){
-
         List<Photo> items=new ArrayList<>();
 
 //        String url= Uri.parse("https://www.flickr.com/services/rest/").buildUpon().
