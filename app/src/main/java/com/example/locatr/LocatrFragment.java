@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ProgressBar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,8 +22,7 @@ import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.*;
 
 import java.io.IOException;
 import java.util.List;
@@ -157,6 +155,17 @@ public class LocatrFragment extends SupportMapFragment {
 
         LatLng itemPoint=new LatLng(mMapItem.getLatitude(),mMapItem.getLongitude());
         LatLng myPoint=new LatLng(mCurrentLocation.getLatitude(),mCurrentLocation.getLongitude());
+
+        BitmapDescriptor itemBitmap= BitmapDescriptorFactory.fromBitmap(mMapImage);
+        MarkerOptions itemMarker=new MarkerOptions()
+                .position(itemPoint)
+                .icon(itemBitmap);
+        MarkerOptions myMarker=new MarkerOptions().position(myPoint);
+
+        mMap.clear();
+        mMap.addMarker(itemMarker);
+        mMap.addMarker(myMarker);
+
         LatLngBounds bounds=new LatLngBounds.Builder()
                 .include(itemPoint)
                 .include(myPoint)
